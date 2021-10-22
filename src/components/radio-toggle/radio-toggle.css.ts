@@ -84,5 +84,9 @@ export const optionLabel = style({
     [`${fieldSet}:focus-within &:first-of-type:before`]: {
       boxShadow: '0 0 0 2px red',
     },
+    // focus styles on the label
+    'input:focus-visible + &': {
+      textDecoration: 'underline',
+    },
   },
 })
