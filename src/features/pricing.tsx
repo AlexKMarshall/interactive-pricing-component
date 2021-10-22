@@ -1,6 +1,10 @@
+import {
+  ScreenReaderOnly,
+  Slider,
+  screenReaderOnly as screenReaderOnlyClass,
+} from 'src/components'
 import { form, header, main } from './pricing.css'
 
-import { Slider } from 'src/components'
 import { useState } from 'react'
 
 const billingPlans = [
@@ -52,9 +56,9 @@ export function Pricing(): JSX.Element {
           <p>No credit card required.</p>
         </header>
         <form className={form}>
-          <output htmlFor="plan-select">{traffic} Pageviews</output>
+          <output htmlFor="plan-select">{formattedTraffic} Pageviews</output>
           <label>
-            Select Traffic Level
+            <ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>
             <Slider
               id="plan-select"
               options={billingPlans}
@@ -63,10 +67,17 @@ export function Pricing(): JSX.Element {
             />
           </label>
           <output htmlFor="plan-select billing-frequency">
-            {formattedPrice} per month
+            {formattedPrice}/month
           </output>
-          <fieldset id="billing-frequency">
-            <legend>Billing Frequency</legend>
+          <div
+            id="billing-frequency"
+            aria-labelledby="billing-label"
+            role="group"
+          >
+            <p id="billing-label" className={screenReaderOnlyClass}>
+              Billing Frequency
+            </p>
+
             <label>
               Monthly Billing
               <input
@@ -95,7 +106,7 @@ export function Pricing(): JSX.Element {
                 checked={billingFrequency === 'year'}
               />
             </label>
-          </fieldset>
+          </div>
           <ul>
             <li>Unlimited websites</li>
             <li>100% data ownership</li>
