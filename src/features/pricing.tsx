@@ -3,7 +3,18 @@ import {
   Slider,
   screenReaderOnly as screenReaderOnlyClass,
 } from 'src/components'
-import { form, header, main } from './pricing.css'
+import {
+  ctaButton,
+  divider,
+  featureList,
+  form,
+  h1,
+  header,
+  main,
+  pageViews,
+  price,
+  priceAmount,
+} from './pricing.css'
 
 import { useState } from 'react'
 
@@ -51,12 +62,14 @@ export function Pricing(): JSX.Element {
     <>
       <main className={main}>
         <header className={header}>
-          <h1>Simple, traffic based pricing</h1>
+          <h1 className={h1}>Simple, traffic based pricing</h1>
           <p>Sign up for our 30-day trial.</p>
           <p>No credit card required.</p>
         </header>
         <form className={form}>
-          <output htmlFor="plan-select">{formattedTraffic} Pageviews</output>
+          <output htmlFor="plan-select" className={pageViews}>
+            {formattedTraffic} Pageviews
+          </output>
           <label>
             <ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>
             <Slider
@@ -66,8 +79,9 @@ export function Pricing(): JSX.Element {
               onChange={(plan) => setSelectedPlan(plan)}
             />
           </label>
-          <output htmlFor="plan-select billing-frequency">
-            {formattedPrice}/month
+          <output htmlFor="plan-select billing-frequency" className={price}>
+            <span className={priceAmount}>{formattedPrice}</span>
+            <span>/ month</span>
           </output>
           <div
             id="billing-frequency"
@@ -107,12 +121,15 @@ export function Pricing(): JSX.Element {
               />
             </label>
           </div>
-          <ul>
+          <hr className={divider} />
+          <ul className={featureList}>
             <li>Unlimited websites</li>
             <li>100% data ownership</li>
             <li>Email reports</li>
           </ul>
-          <button type="submit">Start my trial</button>
+          <button type="submit" className={ctaButton}>
+            Start my trial
+          </button>
         </form>
       </main>
     </>

@@ -4,7 +4,7 @@ import { style } from '@vanilla-extract/css'
 export const center = style({
   boxSizing: 'content-box',
   maxWidth: '550px',
-  paddingInline: '3rem',
+  paddingInline: '1.5rem',
   marginInline: 'auto',
 })
 
@@ -17,13 +17,16 @@ export const stack = recipe({
   variants: {
     size: {
       extraLarge: {
-        gap: '10rem',
+        gap: '5rem',
       },
       large: {
-        gap: '4rem',
+        gap: '2rem',
       },
       small: {
-        gap: '1rem',
+        gap: '0.75rem',
+      },
+      zero: {
+        gap: 0,
       },
     },
   },
