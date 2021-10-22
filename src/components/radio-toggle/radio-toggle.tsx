@@ -1,5 +1,7 @@
-import { Fragment } from 'react'
+import { fieldSet, optionLabel } from './radio-toggle.css'
+
 import { screenReaderOnly } from '..'
+import { useId } from '@react-aria/utils'
 
 type Option<T extends string> = {
   label: string
@@ -20,25 +22,52 @@ export function RadioToggle<A extends string, B extends string>({
   onChange,
 }: Props<A, B>): JSX.Element {
   return (
-    <fieldset>
-      <legend>{label}</legend>
-      {options.map((option, index) => (
-        <Fragment key={option.value}>
-          <input
-            id={`radio-${index}`}
-            type="radio"
-            value={option.value}
-            name={name}
-            checked={option.checked}
-            onChange={(e) => {
-              if (e.target.value === option.value) {
-                onChange(option.value)
-              }
-            }}
-          />
-          <label htmlFor={`radio-${index}`}>{option.label}</label>
-        </Fragment>
+    <fieldset className={fieldSet}>
+      <legend className={screenReaderOnly}>{label}</legend>
+      {options.map((option) => (
+        <Option
+          label={option.label}
+          key={option.value}
+          value={option.value}
+          name={name}
+          checked={option.checked}
+          onChange={(val) => {
+            if (val === option.value) {
+              onChange(option.value)
+            }
+          }}
+        />
       ))}
     </fieldset>
+  )
+}
+
+type OptionProps = {
+  label: string
+  value: string
+  name: string
+  onChange: (value: string) => void
+  checked: boolean
+}
+function Option({ label, value, name, onChange, checked }: OptionProps) {
+  const id = useId()
+
+  return (
+    <>
+      <input
+        id={id}
+        type="radio"
+        value={value}
+        name={name}
+        checked={checked ?? undefined}
+        onChange={(e) => {
+          onChange(e.target.value)
+        }}
+        className={screenReaderOnly}
+      />
+      <label htmlFor={id} className={optionLabel}>
+        {label}
+      </label>
+    </>
   )
 }
