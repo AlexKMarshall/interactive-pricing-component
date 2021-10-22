@@ -1,4 +1,5 @@
 import {
+  RadioToggle,
   ScreenReaderOnly,
   Slider,
   screenReaderOnly as screenReaderOnlyClass,
@@ -83,44 +84,23 @@ export function Pricing(): JSX.Element {
             <span className={priceAmount}>{formattedPrice}</span>
             <span>/ month</span>
           </output>
-          <div
-            id="billing-frequency"
-            aria-labelledby="billing-label"
-            role="group"
-          >
-            <p id="billing-label" className={screenReaderOnlyClass}>
-              Billing Frequency
-            </p>
-
-            <label>
-              Monthly Billing
-              <input
-                type="radio"
-                name="billing-frequency"
-                value="month"
-                onChange={(e) =>
-                  setSelectedBillingFrequency(
-                    e.target.value as BillingFrequency
-                  )
-                }
-                checked={billingFrequency === 'month'}
-              />
-            </label>
-            <label>
-              Yearly Billing -{discountPercent}%
-              <input
-                type="radio"
-                name="billing-frequency"
-                value="year"
-                onChange={(e) =>
-                  setSelectedBillingFrequency(
-                    e.target.value as BillingFrequency
-                  )
-                }
-                checked={billingFrequency === 'year'}
-              />
-            </label>
-          </div>
+          <RadioToggle
+            label="Billing Frequency"
+            name="billing-frequency"
+            options={[
+              {
+                label: 'Monthly Billing',
+                value: 'month' as const,
+                checked: billingFrequency === 'month',
+              },
+              {
+                label: `Yearly Billing -${discountPercent}%`,
+                value: 'year' as const,
+                checked: billingFrequency === 'year',
+              },
+            ]}
+            onChange={(value) => setSelectedBillingFrequency(value)}
+          />
           <hr className={divider} />
           <ul className={featureList}>
             <li>Unlimited websites</li>
