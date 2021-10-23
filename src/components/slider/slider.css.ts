@@ -20,9 +20,8 @@ globalStyle(`${innerWrapper} > *`, {
 
 export const input = style({
   display: 'block',
-  width: '100%',
   height: '100%',
-  opacity: 0.05,
+  opacity: 0.01,
 })
 
 export const sliderValue = createVar()
@@ -30,8 +29,8 @@ export const sliderValue = createVar()
 export const track = style({
   display: 'block',
   position: 'relative',
-  width: '100%',
   height: '0.5rem',
+  marginInline: '1.75rem',
   background: 'gray',
   borderRadius: '999px',
   overflow: 'hidden',
