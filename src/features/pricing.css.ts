@@ -31,6 +31,7 @@ export const form = style([
   {
     alignItems: 'center',
     paddingBlock: '2rem',
+    paddingInline: '1rem',
     outline: '1px solid navy',
   },
 ])

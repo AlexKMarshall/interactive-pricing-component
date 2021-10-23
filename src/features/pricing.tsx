@@ -71,15 +71,15 @@ export function Pricing(): JSX.Element {
           <output htmlFor="plan-select" className={pageViews}>
             {formattedTraffic} Pageviews
           </output>
-          <label>
-            <ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>
-            <Slider
-              id="plan-select"
-              options={billingPlans}
-              value={selectedPlan}
-              onChange={(plan) => setSelectedPlan(plan)}
-            />
-          </label>
+
+          <Slider
+            id="plan-select"
+            options={billingPlans}
+            value={selectedPlan}
+            onChange={(plan) => setSelectedPlan(plan)}
+            label={<ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>}
+          />
+
           <output htmlFor="plan-select billing-frequency" className={price}>
             <span className={priceAmount}>{formattedPrice}</span>
             <span>/ month</span>
