@@ -1,15 +1,32 @@
-import { createVar, style } from '@vanilla-extract/css'
+import { createTheme, createVar, style } from '@vanilla-extract/css'
 
 import { calc } from '@vanilla-extract/css-utils'
+import { themeTokens } from 'src/styles/theme.css'
 
-export const fieldSet = style({
-  border: 'none',
-  margin: '0',
-  padding: '0',
-  display: 'flex',
-  alignItems: 'center',
-  isolation: 'isolate',
+const [switchThemeClass, switchThemeTokens] = createTheme({
+  color: {
+    track: {
+      base: themeTokens.color.neutral[400],
+    },
+    thumb: {
+      base: themeTokens.color.neutral[100],
+    },
+  },
 })
+
+export const fieldSet = style([
+  switchThemeClass,
+  {
+    border: 'none',
+    margin: '0',
+    padding: '0',
+    display: 'flex',
+    alignItems: 'center',
+    isolation: 'isolate',
+    fontSize: `${13 / 16}rem`,
+    letterSpacing: '-0.03em',
+  },
+])
 
 const switchWidth = createVar()
 const switchHeight = createVar()
@@ -19,12 +36,14 @@ const thumbDiameter = createVar()
 
 export const optionLabel = style({
   userSelect: 'none', // otherwise double clicking on the switch selects the labels
+  flexShrink: 0,
+  flexGrow: 0,
 
   vars: {
     [switchWidth]: '4em',
     [switchHeight]: '2em',
     [switchGap]: '1em',
-    [thumbPadding]: '3px',
+    [thumbPadding]: '4px',
     [thumbDiameter]: calc.subtract(
       switchHeight,
       calc.multiply(2, thumbPadding)
@@ -58,7 +77,7 @@ export const optionLabel = style({
       width: switchWidth,
       height: switchHeight,
       borderRadius: '999px',
-      backgroundColor: 'gray',
+      backgroundColor: switchThemeTokens.color.track.base,
     },
     // switch thumb
     '&:first-of-type:after': {
@@ -69,7 +88,7 @@ export const optionLabel = style({
       width: thumbDiameter,
       height: thumbDiameter,
       borderRadius: '50%',
-      backgroundColor: 'black',
+      backgroundColor: switchThemeTokens.color.thumb.base,
     },
     // thumb with item 1 selected
     'input:checked + &:first-of-type:after': {

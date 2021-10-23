@@ -102,7 +102,7 @@ export function Pricing(): JSX.Element {
             onChange={(value) => setSelectedBillingFrequency(value)}
           />
           <hr className={divider} />
-          <ul className={featureList}>
+          <ul className={featureList} role="list">
             <li>Unlimited websites</li>
             <li>100% data ownership</li>
             <li>Email reports</li>

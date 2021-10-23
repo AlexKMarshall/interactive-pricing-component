@@ -1,12 +1,32 @@
-import { createVar, globalStyle, style } from '@vanilla-extract/css'
+import {
+  createTheme,
+  createVar,
+  globalStyle,
+  style,
+} from '@vanilla-extract/css'
 
 import { calc } from '@vanilla-extract/css-utils'
+import { themeTokens } from 'src/styles/theme.css'
 
-export const wrapper = style({
-  display: 'block',
-  width: '100%',
-  overflow: 'hidden',
+const [sliderThemeClass, sliderThemeTokens] = createTheme({
+  color: {
+    trackEmpty: themeTokens.color.neutral[300],
+    trackFill: themeTokens.color.neutral[500],
+    thumb: themeTokens.color.neutral[500],
+    thumbActive: themeTokens.color.neutral[600],
+  },
 })
+
+export { sliderThemeTokens }
+
+export const wrapper = style([
+  sliderThemeClass,
+  {
+    display: 'block',
+    width: '100%',
+    overflow: 'hidden',
+  },
+])
 
 export const innerWrapper = style({
   display: 'grid',
@@ -31,7 +51,7 @@ export const track = style({
   position: 'relative',
   height: '0.5rem',
   marginInline: '1.75rem',
-  background: 'gray',
+  background: sliderThemeTokens.color.trackEmpty,
   borderRadius: '999px',
   overflow: 'hidden',
   ':after': {
@@ -43,7 +63,7 @@ export const track = style({
     transformOrigin: 'left',
     transform: `scaleX(${calc.multiply(sliderValue, '100%')})`,
     transition: 'transform 250ms linear',
-    background: 'black',
+    background: sliderThemeTokens.color.trackFill,
   },
 })
 
@@ -66,7 +86,7 @@ export const thumb = style({
     height: thumbDiameter,
     width: thumbDiameter,
     borderRadius: '50%',
-    backgroundColor: 'blue',
+    backgroundColor: sliderThemeTokens.color.thumb,
   },
   vars: {
     [thumbDiameter]: '3.5rem',

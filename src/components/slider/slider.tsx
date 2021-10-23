@@ -9,6 +9,7 @@ import {
 } from './slider.css'
 
 import { assignInlineVars } from '@vanilla-extract/dynamic'
+import { mergeClassNames } from 'src/merge-class-names'
 
 type Props<T extends unknown> = {
   options: T[]
@@ -16,12 +17,14 @@ type Props<T extends unknown> = {
   onChange: (value: T) => void
   id?: string
   label: ReactNode
+  className?: string
 }
 export function Slider<T>({
   options,
   value,
   onChange,
   label,
+  className,
   ...props
 }: Props<T>): JSX.Element {
   const numOfOptions = options.length
@@ -39,7 +42,7 @@ export function Slider<T>({
 
   return (
     <label
-      className={wrapper}
+      className={mergeClassNames(wrapper, className)}
       style={assignInlineVars({
         [sliderValue]: decimalValue.toString(),
       })}

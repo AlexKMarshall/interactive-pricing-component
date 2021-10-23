@@ -1,6 +1,6 @@
 import { center, stack } from 'src/styles/layout.css'
+import { globalStyle, style } from '@vanilla-extract/css'
 
-import { style } from '@vanilla-extract/css'
 import { themeTokens } from 'src/styles/theme.css'
 
 export const main = style([
@@ -8,7 +8,6 @@ export const main = style([
   stack({ size: 'extraLarge' }),
   {
     paddingBlock: '6rem',
-    outline: '1px solid navy',
   },
 ])
 
@@ -17,7 +16,6 @@ export const header = style([
   {
     alignItems: 'center',
     lineHeight: '1.1',
-    outline: '1px solid navy',
   },
 ])
 
@@ -31,8 +29,8 @@ export const form = style([
   {
     alignItems: 'center',
     paddingBlock: '2rem',
-    paddingInline: '1rem',
-    outline: '1px solid navy',
+    backgroundColor: themeTokens.color.neutral[100],
+    borderRadius: '8px',
   },
 ])
 
@@ -50,10 +48,13 @@ export const price = style({
 export const priceAmount = style({
   fontSize: '2rem',
   fontWeight: themeTokens.typography.weight.bold,
+  color: themeTokens.color.neutral[600],
 })
 
 export const divider = style({
   width: '100%',
+  borderStyle: 'solid',
+  borderColor: themeTokens.color.neutral[300],
 })
 
 export const featureList = style([
@@ -61,12 +62,39 @@ export const featureList = style([
   {
     alignItems: 'center',
     padding: 0,
+    listStyle: 'none',
+
+    ':before': {
+      content: '',
+      display: 'inline-block',
+      width: '1em',
+      backgroundImage: 'url("/icon-check.svg")',
+      backgroundColor: 'blue',
+    },
   },
 ])
 
+globalStyle(`${featureList} > li`, {
+  position: 'relative',
+})
+
+globalStyle(`${featureList} > li:before`, {
+  content: '',
+  display: 'inline-block',
+  position: 'absolute',
+  left: '-2em',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  height: '1em',
+  width: '1em',
+  backgroundImage: 'url("/icon-check.svg")',
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
+})
+
 export const ctaButton = style({
   border: 'none',
-  background: 'black',
+  background: themeTokens.color.neutral[600],
   color: 'white',
   borderRadius: '999px',
   paddingBlock: '0.75rem',
