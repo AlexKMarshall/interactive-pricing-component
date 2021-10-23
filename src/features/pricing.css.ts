@@ -1,5 +1,5 @@
 import { center, stack } from 'src/styles/layout.css'
-import { globalStyle, style } from '@vanilla-extract/css'
+import { createVar, globalStyle, style } from '@vanilla-extract/css'
 
 import { themeTokens } from 'src/styles/theme.css'
 
@@ -23,6 +23,7 @@ export const h1 = style({
   fontSize: '1.25rem',
   lineHeight: '1.5',
 })
+const shadowColor = createVar()
 
 export const form = style([
   stack({ size: 'large' }),
@@ -31,6 +32,17 @@ export const form = style([
     paddingBlock: '2rem',
     backgroundColor: themeTokens.color.neutral[100],
     borderRadius: '8px',
+    boxShadow: `
+    1px 2px 2px hsl(${shadowColor} / 0.1),
+    2px 4px 4px hsl(${shadowColor} / 0.1),
+    4px 8px 8px hsl(${shadowColor} / 0.1),
+    8px 16px 16px hsl(${shadowColor} / 0.1),
+    16px 32px 32px hsl(${shadowColor} / 0.1)
+    `,
+
+    vars: {
+      [shadowColor]: '225 20% 60%',
+    },
   },
 ])
 
