@@ -41,10 +41,10 @@ export const h1 = style({
 const shadowColor = createVar()
 
 export const form = style([
-  stack({ size: 'large' }),
+  // stack({ size: 'large' }),
   {
     alignItems: 'center',
-    paddingBlock: '2rem',
+    // paddingBlock: '2rem',
     backgroundColor: themeTokens.color.neutral[100],
     borderRadius: '8px',
     boxShadow: `
@@ -58,6 +58,15 @@ export const form = style([
     vars: {
       [shadowColor]: '225 20% 60%',
     },
+  },
+])
+
+export const controlsSection = style([
+  stack({ size: 'large' }),
+  {
+    paddingBlock: '2rem',
+    paddingInline: '1.5rem',
+    alignItems: 'center',
   },
 ])
 
@@ -93,11 +102,15 @@ export const discountBadge = style({
   color: themeTokens.color.red[300],
 })
 
-export const divider = style({
-  width: '100%',
-  borderStyle: 'solid',
-  borderColor: themeTokens.color.neutral[300],
-})
+export const ctaSection = style([
+  stack({ size: 'large' }),
+  {
+    paddingBlock: '2rem',
+    paddingInline: '1.5rem',
+    alignItems: 'center',
+    borderTop: `2px solid ${themeTokens.color.neutral[300]}`,
+  },
+])
 
 export const featureList = style([
   stack({ size: 'zero' }),

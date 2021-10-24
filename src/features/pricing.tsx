@@ -6,9 +6,10 @@ import {
   screenReaderOnly as screenReaderOnlyClass,
 } from 'src/components'
 import {
+  controlsSection,
   ctaButton,
+  ctaSection,
   discountBadge,
-  divider,
   featureList,
   form,
   h1,
@@ -70,46 +71,47 @@ export function Pricing(): JSX.Element {
           <p>No credit card required.</p>
         </header>
         <form className={form}>
-          <output htmlFor="plan-select" className={pageViews}>
-            {formattedTraffic} Pageviews
-          </output>
-
-          <Slider
-            id="plan-select"
-            options={billingPlans}
-            value={selectedPlan}
-            onChange={(plan) => setSelectedPlan(plan)}
-            label={<ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>}
-          />
-
-          <output htmlFor="plan-select billing-frequency" className={price}>
-            <span className={priceAmount}>{formattedPrice}</span>
-            <span>/ month</span>
-          </output>
-          <RadioToggle
-            label="Billing Frequency"
-            name="billing-frequency"
-            onChange={(value) =>
-              setSelectedBillingFrequency(value as BillingFrequency)
-            }
-          >
-            <RadioOption value="month" checked={billingFrequency === 'month'}>
-              Monthly Billing
-            </RadioOption>
-            <RadioOption value="year" checked={billingFrequency === 'year'}>
-              Yearly Billing{' '}
-              <span className={discountBadge}>-{discountPercent}%</span>
-            </RadioOption>
-          </RadioToggle>
-          <hr className={divider} />
-          <ul className={featureList} role="list">
-            <li>Unlimited websites</li>
-            <li>100% data ownership</li>
-            <li>Email reports</li>
-          </ul>
-          <button type="submit" className={ctaButton}>
-            Start my trial
-          </button>
+          <div className={controlsSection}>
+            <output htmlFor="plan-select" className={pageViews}>
+              {formattedTraffic} Pageviews
+            </output>
+            <Slider
+              id="plan-select"
+              options={billingPlans}
+              value={selectedPlan}
+              onChange={(plan) => setSelectedPlan(plan)}
+              label={<ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>}
+            />
+            <output htmlFor="plan-select billing-frequency" className={price}>
+              <span className={priceAmount}>{formattedPrice}</span>
+              <span>/ month</span>
+            </output>
+            <RadioToggle
+              label="Billing Frequency"
+              name="billing-frequency"
+              onChange={(value) =>
+                setSelectedBillingFrequency(value as BillingFrequency)
+              }
+            >
+              <RadioOption value="month" checked={billingFrequency === 'month'}>
+                Monthly Billing
+              </RadioOption>
+              <RadioOption value="year" checked={billingFrequency === 'year'}>
+                Yearly Billing{' '}
+                <span className={discountBadge}>-{discountPercent}%</span>
+              </RadioOption>
+            </RadioToggle>
+          </div>
+          <div className={ctaSection}>
+            <ul className={featureList} role="list">
+              <li>Unlimited websites</li>
+              <li>100% data ownership</li>
+              <li>Email reports</li>
+            </ul>
+            <button type="submit" className={ctaButton}>
+              Start my trial
+            </button>
+          </div>
         </form>
       </main>
     </>
