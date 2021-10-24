@@ -23,8 +23,6 @@ export const fieldSet = style([
     display: 'flex',
     alignItems: 'center',
     isolation: 'isolate',
-    fontSize: `${13 / 16}rem`,
-    letterSpacing: '-0.03em',
   },
 ])
 

@@ -13,7 +13,7 @@ export const main = style([
         minHeight: '100vh',
         // paddingBlock: 0,
         gap: 0,
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
       },
     },
   },
@@ -25,6 +25,7 @@ export const header = style([
     alignItems: 'center',
     lineHeight: '1.1',
     position: 'relative',
+    fontSize: 'clamp(1rem, 0.8rem + 0.98vw, 1.5rem)',
 
     ':after': {
       content: '',
@@ -43,16 +44,14 @@ export const header = style([
 ])
 
 export const h1 = style({
-  fontSize: '1.25rem',
+  fontSize: 'clamp(1.25rem, 0.96rem + 1vw, 2rem)',
   lineHeight: '1.5',
 })
 const shadowColor = createVar()
 
 export const form = style([
-  // stack({ size: 'large' }),
   {
     alignItems: 'center',
-    // paddingBlock: '2rem',
     backgroundColor: themeTokens.color.neutral[100],
     borderRadius: '8px',
     boxShadow: `
@@ -126,6 +125,7 @@ export const price = style({
 
 export const toggle = style({
   gridArea: 'toggle',
+  fontSize: 'clamp(0.81rem, 0.74rem + 0.37vw, 1rem)',
 })
 
 export const priceAmount = style({
