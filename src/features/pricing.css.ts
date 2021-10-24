@@ -222,4 +222,10 @@ export const ctaButton = style({
   borderRadius: '999px',
   paddingBlock: '0.75rem',
   paddingInline: '3rem',
+
+  ':focus-visible': {
+    boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${themeTokens.color.neutral[600]}`,
+    outline: '1px solid transparent',
+    outlineOffset: '2px',
+  },
 })

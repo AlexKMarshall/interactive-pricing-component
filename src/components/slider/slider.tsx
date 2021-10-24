@@ -50,7 +50,7 @@ export function Slider<T>({
       {label}
       <span className={innerWrapper}>
         <span className={track} />
-        <span className={thumb} />
+        {/* input must be above the thumb, so we can use adjacent sibling selector when it's focussed */}
         <input
           type="range"
           min="1"
@@ -60,6 +60,7 @@ export function Slider<T>({
           {...props}
           className={input}
         />
+        <span className={thumb} />
       </span>
     </label>
   )

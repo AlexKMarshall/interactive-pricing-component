@@ -42,17 +42,30 @@ export const input = style({
   display: 'block',
   height: '100%',
   opacity: 0.01,
+  // we need to lift the input above the decorative thumb so it's clickable
+  // we can't change the source order due to using adjacent sibling selector for focus
+  zIndex: 2,
+
+  // we change cursor on the input element as it's top of the zIndex stack
+  ':hover': {
+    cursor: 'grab',
+  },
+  ':active': {
+    cursor: 'grabbing',
+  },
 })
 
 export const sliderValue = createVar()
 
 export const track = style({
+  pointerEvents: 'none',
   display: 'block',
   position: 'relative',
   height: '0.5rem',
   background: sliderThemeTokens.color.trackEmpty,
   borderRadius: '999px',
   overflow: 'hidden',
+  // filled in part of the track
   ':after': {
     content: '',
     display: 'block',
@@ -69,6 +82,7 @@ export const track = style({
 const thumbDiameter = createVar()
 
 export const thumb = style({
+  // thumb wrapper takes full width of the track, so we can translate it a percentage of that
   display: 'block',
   position: 'relative',
   transform: `translateX(${calc.multiply(
@@ -78,6 +92,8 @@ export const thumb = style({
   transition: 'transform 250ms linear',
   height: thumbDiameter,
   width: '100%',
+
+  // the actual visible thumb
   '::before': {
     content: '',
     display: 'block',
@@ -86,6 +102,13 @@ export const thumb = style({
     width: thumbDiameter,
     borderRadius: '50%',
     backgroundColor: sliderThemeTokens.color.thumb,
+  },
+
+  selectors: {
+    'input:focus-visible + &::before, input:active + &::before, input:hover + &::before':
+      {
+        backgroundColor: sliderThemeTokens.color.thumbActive,
+      },
   },
   vars: {
     [thumbDiameter]: '3.5rem',

@@ -100,11 +100,8 @@ export const optionLabel = style({
     },
     // focus styles on the switch
     [`${fieldSet}:focus-within &:first-of-type:before`]: {
-      boxShadow: '0 0 0 2px red',
-    },
-    // focus styles on the label
-    'input:focus-visible + &': {
-      textDecoration: 'underline',
+      boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${themeTokens.color.neutral[600]}`,
+      outline: '1px solid transparent',
     },
   },
 })
