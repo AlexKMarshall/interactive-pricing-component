@@ -109,6 +109,14 @@ export const ctaSection = style([
     paddingInline: '1.5rem',
     alignItems: 'center',
     borderTop: `2px solid ${themeTokens.color.neutral[300]}`,
+
+    '@media': {
+      '(min-width: 768px)': {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingInline: '2rem',
+      },
+    },
   },
 ])
 
@@ -119,18 +127,24 @@ export const featureList = style([
     padding: 0,
     listStyle: 'none',
 
-    ':before': {
-      content: '',
-      display: 'inline-block',
-      width: '1em',
-      backgroundImage: 'url("/icon-check.svg")',
-      backgroundColor: 'blue',
+    '@media': {
+      '(min-width: 768px)': {
+        alignItems: 'flex-start',
+      },
     },
   },
 ])
 
 globalStyle(`${featureList} > li`, {
   position: 'relative',
+
+  '@media': {
+    '(min-width: 768px)': {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '1em',
+    },
+  },
 })
 
 globalStyle(`${featureList} > li:before`, {
@@ -145,6 +159,13 @@ globalStyle(`${featureList} > li:before`, {
   backgroundImage: 'url("/icon-check.svg")',
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
+
+  '@media': {
+    '(min-width: 768px)': {
+      position: 'static',
+      transform: 'unset',
+    },
+  },
 })
 
 export const ctaButton = style({
