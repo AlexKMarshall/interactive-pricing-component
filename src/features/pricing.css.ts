@@ -11,9 +11,9 @@ export const main = style([
     '@media': {
       [mediaQueries.desktop]: {
         minHeight: '100vh',
-        paddingBlock: 0,
+        // paddingBlock: 0,
         gap: 0,
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
       },
     },
   },
