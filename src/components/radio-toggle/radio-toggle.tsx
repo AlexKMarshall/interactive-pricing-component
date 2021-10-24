@@ -1,55 +1,52 @@
+import { ReactNode, createContext, useContext } from 'react'
 import { fieldSet, optionLabel } from './radio-toggle.css'
 
 import { screenReaderOnly } from '..'
 import { useId } from '@react-aria/utils'
 
-type Option<T extends string> = {
-  label: string
-  value: T
-  checked: boolean
+type RadioContext = {
+  name: string
+  onChange: (value: string) => void
+}
+const RadioContext = createContext<RadioContext | null>(null)
+
+function useRadioToggle() {
+  const context = useContext(RadioContext)
+  if (!context) {
+    throw new Error(`RadioOption must be used inside a RadioToggle component`)
+  }
+  return context
 }
 
-type Props<A extends string, B extends string> = {
-  options: [Option<A>, Option<B>]
+type Props = {
   label: string
   name: string
-  onChange: (value: A | B) => void
+  onChange: (value: string) => void
+  children: ReactNode
 }
-export function RadioToggle<A extends string, B extends string>({
+export function RadioToggle({
   label,
-  options,
   name,
   onChange,
-}: Props<A, B>): JSX.Element {
+  children,
+}: Props): JSX.Element {
   return (
     <fieldset className={fieldSet}>
       <legend className={screenReaderOnly}>{label}</legend>
-      {options.map((option) => (
-        <Option
-          label={option.label}
-          key={option.value}
-          value={option.value}
-          name={name}
-          checked={option.checked}
-          onChange={(val) => {
-            if (val === option.value) {
-              onChange(option.value)
-            }
-          }}
-        />
-      ))}
+      <RadioContext.Provider value={{ name, onChange }}>
+        {children}
+      </RadioContext.Provider>
     </fieldset>
   )
 }
 
 type OptionProps = {
-  label: string
   value: string
-  name: string
-  onChange: (value: string) => void
   checked: boolean
+  children: ReactNode
 }
-function Option({ label, value, name, onChange, checked }: OptionProps) {
+export function RadioOption({ children, value, checked }: OptionProps) {
+  const { name, onChange } = useRadioToggle()
   const id = useId()
 
   return (
@@ -59,14 +56,14 @@ function Option({ label, value, name, onChange, checked }: OptionProps) {
         type="radio"
         value={value}
         name={name}
-        checked={checked ?? undefined}
+        checked={checked}
         onChange={(e) => {
           onChange(e.target.value)
         }}
         className={screenReaderOnly}
       />
       <label htmlFor={id} className={optionLabel}>
-        {label}
+        {children}
       </label>
     </>
   )

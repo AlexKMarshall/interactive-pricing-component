@@ -1,4 +1,5 @@
 import {
+  RadioOption,
   RadioToggle,
   ScreenReaderOnly,
   Slider,
@@ -87,20 +88,17 @@ export function Pricing(): JSX.Element {
           <RadioToggle
             label="Billing Frequency"
             name="billing-frequency"
-            options={[
-              {
-                label: 'Monthly Billing',
-                value: 'month' as const,
-                checked: billingFrequency === 'month',
-              },
-              {
-                label: `Yearly Billing -${discountPercent}%`,
-                value: 'year' as const,
-                checked: billingFrequency === 'year',
-              },
-            ]}
-            onChange={(value) => setSelectedBillingFrequency(value)}
-          />
+            onChange={(value) =>
+              setSelectedBillingFrequency(value as BillingFrequency)
+            }
+          >
+            <RadioOption value="month" checked={billingFrequency === 'month'}>
+              Monthly Billing
+            </RadioOption>
+            <RadioOption value="year" checked={billingFrequency === 'year'}>
+              Yearly Billing -{discountPercent}%
+            </RadioOption>
+          </RadioToggle>
           <hr className={divider} />
           <ul className={featureList} role="list">
             <li>Unlimited websites</li>
