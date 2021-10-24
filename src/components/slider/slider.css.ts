@@ -50,7 +50,6 @@ export const track = style({
   display: 'block',
   position: 'relative',
   height: '0.5rem',
-  marginInline: '1.75rem',
   background: sliderThemeTokens.color.trackEmpty,
   borderRadius: '999px',
   overflow: 'hidden',
