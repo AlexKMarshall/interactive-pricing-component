@@ -16,6 +16,21 @@ export const header = style([
   {
     alignItems: 'center',
     lineHeight: '1.1',
+    position: 'relative',
+
+    ':after': {
+      content: '',
+      position: 'absolute',
+      height: '145px',
+      width: '145px',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundImage: 'url("/pattern-circles.svg")',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      zIndex: -1,
+    },
   },
 ])
 
