@@ -63,6 +63,21 @@ export const priceAmount = style({
   color: themeTokens.color.neutral[600],
 })
 
+export const discountBadge = style({
+  display: 'inline-block',
+  marginInlineStart: '1em',
+  paddingBlock: '0.33em',
+  paddingInline: '0.66em',
+  borderRadius: '999px',
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  fontSize: '0.75em',
+  fontWeight: themeTokens.typography.weight.bold,
+  backgroundColor: themeTokens.color.red[100],
+  color: themeTokens.color.red[300],
+})
+
 export const divider = style({
   width: '100%',
   borderStyle: 'solid',
@@ -107,7 +122,7 @@ globalStyle(`${featureList} > li:before`, {
 export const ctaButton = style({
   border: 'none',
   background: themeTokens.color.neutral[600],
-  color: 'white',
+  color: themeTokens.color.blue[100],
   borderRadius: '999px',
   paddingBlock: '0.75rem',
   paddingInline: '3rem',

@@ -36,6 +36,7 @@ const thumbDiameter = createVar()
 
 export const optionLabel = style({
   userSelect: 'none', // otherwise double clicking on the switch selects the labels
+  position: 'relative',
   flexShrink: 0,
   flexGrow: 0,
 

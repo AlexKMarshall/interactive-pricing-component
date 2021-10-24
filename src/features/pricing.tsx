@@ -7,6 +7,7 @@ import {
 } from 'src/components'
 import {
   ctaButton,
+  discountBadge,
   divider,
   featureList,
   form,
@@ -96,7 +97,8 @@ export function Pricing(): JSX.Element {
               Monthly Billing
             </RadioOption>
             <RadioOption value="year" checked={billingFrequency === 'year'}>
-              Yearly Billing -{discountPercent}%
+              Yearly Billing{' '}
+              <span className={discountBadge}>-{discountPercent}%</span>
             </RadioOption>
           </RadioToggle>
           <hr className={divider} />
