@@ -18,6 +18,8 @@ import {
   pageViews,
   price,
   priceAmount,
+  slider,
+  toggle,
 } from './pricing.css'
 
 import { useState } from 'react'
@@ -81,6 +83,7 @@ export function Pricing(): JSX.Element {
               value={selectedPlan}
               onChange={(plan) => setSelectedPlan(plan)}
               label={<ScreenReaderOnly>Select Traffic Level</ScreenReaderOnly>}
+              className={slider}
             />
             <output htmlFor="plan-select billing-frequency" className={price}>
               <span className={priceAmount}>{formattedPrice}</span>
@@ -92,6 +95,7 @@ export function Pricing(): JSX.Element {
               onChange={(value) =>
                 setSelectedBillingFrequency(value as BillingFrequency)
               }
+              className={toggle}
             >
               <RadioOption value="month" checked={billingFrequency === 'month'}>
                 Monthly Billing

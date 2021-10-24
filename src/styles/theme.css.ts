@@ -25,3 +25,7 @@ export const themeTokens = createGlobalTheme(':root', {
     },
   },
 })
+
+export const mediaQueries = {
+  desktop: '(min-width: 768px)',
+}

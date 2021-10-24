@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext } from 'react'
 import { fieldSet, optionLabel } from './radio-toggle.css'
 
+import { mergeClassNames } from 'src/merge-class-names'
 import { screenReaderOnly } from '..'
 import { useId } from '@react-aria/utils'
 
@@ -22,16 +23,18 @@ type Props = {
   label: string
   name: string
   onChange: (value: string) => void
+  className?: string
   children: ReactNode
 }
 export function RadioToggle({
   label,
   name,
   onChange,
+  className,
   children,
 }: Props): JSX.Element {
   return (
-    <fieldset className={fieldSet}>
+    <fieldset className={mergeClassNames(fieldSet, className)}>
       <legend className={screenReaderOnly}>{label}</legend>
       <RadioContext.Provider value={{ name, onChange }}>
         {children}

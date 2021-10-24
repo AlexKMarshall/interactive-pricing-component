@@ -1,13 +1,21 @@
 import { center, stack } from 'src/styles/layout.css'
 import { createVar, globalStyle, style } from '@vanilla-extract/css'
-
-import { themeTokens } from 'src/styles/theme.css'
+import { mediaQueries, themeTokens } from 'src/styles/theme.css'
 
 export const main = style([
   center,
   stack({ size: 'extraLarge' }),
   {
     paddingBlock: '6rem',
+
+    '@media': {
+      [mediaQueries.desktop]: {
+        minHeight: '100vh',
+        paddingBlock: 0,
+        gap: 0,
+        justifyContent: 'space-evenly',
+      },
+    },
   },
 ])
 
@@ -64,21 +72,60 @@ export const form = style([
 export const controlsSection = style([
   stack({ size: 'large' }),
   {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridTemplateAreas: `'pageviews'
+                        'slider'
+                        'price'
+                        'toggle'`,
     paddingBlock: '2rem',
     paddingInline: '1.5rem',
+    justifyItems: 'center',
     alignItems: 'center',
+
+    '@media': {
+      [mediaQueries.desktop]: {
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateAreas: `'pageviews price'
+                            'slider slider'
+                            'toggle toggle'`,
+        paddingInline: '2rem',
+      },
+    },
   },
 ])
 
 export const pageViews = style({
   letterSpacing: '0.1em',
   textTransform: 'uppercase',
+  gridArea: 'pageviews',
+
+  '@media': {
+    [mediaQueries.desktop]: {
+      justifySelf: 'start',
+    },
+  },
+})
+
+export const slider = style({
+  gridArea: 'slider',
 })
 
 export const price = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.5rem',
+  gridArea: 'price',
+
+  '@media': {
+    [mediaQueries.desktop]: {
+      justifySelf: 'end',
+    },
+  },
+})
+
+export const toggle = style({
+  gridArea: 'toggle',
 })
 
 export const priceAmount = style({
@@ -111,7 +158,7 @@ export const ctaSection = style([
     borderTop: `2px solid ${themeTokens.color.neutral[300]}`,
 
     '@media': {
-      '(min-width: 768px)': {
+      [mediaQueries.desktop]: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingInline: '2rem',
@@ -128,7 +175,7 @@ export const featureList = style([
     listStyle: 'none',
 
     '@media': {
-      '(min-width: 768px)': {
+      [mediaQueries.desktop]: {
         alignItems: 'flex-start',
       },
     },
@@ -139,7 +186,7 @@ globalStyle(`${featureList} > li`, {
   position: 'relative',
 
   '@media': {
-    '(min-width: 768px)': {
+    [mediaQueries.desktop]: {
       display: 'flex',
       alignItems: 'center',
       gap: '1em',
@@ -161,7 +208,7 @@ globalStyle(`${featureList} > li:before`, {
   backgroundRepeat: 'no-repeat',
 
   '@media': {
-    '(min-width: 768px)': {
+    [mediaQueries.desktop]: {
       position: 'static',
       transform: 'unset',
     },
