@@ -1,6 +1,7 @@
 import {
   createTheme,
   createVar,
+  fallbackVar,
   globalStyle,
   style,
 } from '@vanilla-extract/css'
@@ -74,7 +75,10 @@ export const track = style({
     height: '100%',
     width: '100%',
     transformOrigin: 'left',
-    transform: `scaleX(${calc.multiply(sliderValue, '100%')})`,
+    transform: `scaleX(${calc.multiply(
+      fallbackVar(sliderValue, '0'),
+      '100%'
+    )})`,
     transition: 'transform 250ms linear',
     background: sliderThemeTokens.color.trackFill,
   },
