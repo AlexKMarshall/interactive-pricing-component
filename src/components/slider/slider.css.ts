@@ -93,6 +93,7 @@ export const thumbWrapper = style({
   transition: 'transform 250ms linear',
   height: thumbDiameter,
   width: '100%',
+  isolation: 'isolate',
 
   vars: {
     [thumbDiameter]: '3.5rem',
@@ -103,13 +104,14 @@ export const thumb = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  position: 'relative',
+  // position: 'relative',
   height: thumbDiameter,
   width: thumbDiameter,
   borderRadius: '50%',
   backgroundColor: sliderThemeTokens.color.thumb,
   transition: 'filter 500ms ease',
   transitionProperty: 'filter, backgroundColor',
+  // zIndex: 2,
 
   selectors: {
     [`input:focus-visible + ${thumbWrapper} > &`]: {
@@ -117,11 +119,25 @@ export const thumb = style({
     },
     [`input:focus-visible + ${thumbWrapper} > &,  input:hover + ${thumbWrapper} > &`]:
       {
-        filter: 'brightness(1.15) saturate(0.5)',
+        // filter: 'brightness(1.15) saturate(0.5)',
       },
     [`input:active + ${thumbWrapper} > &`]: {
       backgroundColor: sliderThemeTokens.color.thumbActive,
     },
+  },
+
+  ':before': {
+    content: '',
+    display: 'block',
+    position: 'absolute',
+    height: thumbDiameter,
+    width: thumbDiameter,
+    borderRadius: '50%',
+    backgroundColor: sliderThemeTokens.color.thumb,
+    top: '50%',
+    zIndex: -1,
+    filter: 'blur(20px) opacity(0.6)',
+    transform: 'scaleY(60%)',
   },
 })
 
