@@ -1,4 +1,5 @@
 import {
+  MediaQueryContent,
   RadioOption,
   RadioToggle,
   ScreenReaderOnly,
@@ -113,7 +114,16 @@ export function Pricing(): JSX.Element {
               </RadioOption>
               <RadioOption value="year" checked={billingFrequency === 'year'}>
                 Yearly Billing{' '}
-                <span className={discountBadge}>-{discountPercent}%</span>
+                <MediaQueryContent
+                  mobile={
+                    <span className={discountBadge}>-{discountPercent}%</span>
+                  }
+                  desktop={
+                    <span className={discountBadge}>
+                      {discountPercent}% discount
+                    </span>
+                  }
+                />
               </RadioOption>
             </RadioToggle>
           </div>

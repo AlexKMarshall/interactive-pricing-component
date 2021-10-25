@@ -15,23 +15,37 @@ const [switchThemeClass, switchThemeTokens] = createTheme({
   },
 })
 
+const switchWidth = createVar()
+const switchHeight = createVar()
+const switchGap = createVar()
+const thumbPadding = createVar()
+const thumbDiameter = createVar()
+
 export const fieldSet = style([
   switchThemeClass,
   {
     border: 'none',
     margin: '0',
     padding: '0',
-    display: 'flex',
+    position: 'relative',
+    display: 'grid',
+    gridTemplateColumns: `1fr ${switchWidth} 1fr`,
+    width: '100%',
     alignItems: 'center',
     isolation: 'isolate',
+
+    vars: {
+      [switchWidth]: '4em',
+      [switchHeight]: '2em',
+      [switchGap]: '1em',
+      [thumbPadding]: '4px',
+      [thumbDiameter]: calc.subtract(
+        switchHeight,
+        calc.multiply(2, thumbPadding)
+      ),
+    },
   },
 ])
-
-const switchWidth = createVar()
-const switchHeight = createVar()
-const switchGap = createVar()
-const thumbPadding = createVar()
-const thumbDiameter = createVar()
 
 export const optionLabel = style({
   userSelect: 'none', // otherwise double clicking on the switch selects the labels
@@ -40,17 +54,6 @@ export const optionLabel = style({
   flexGrow: 0,
   cursor: 'pointer',
 
-  vars: {
-    [switchWidth]: '4em',
-    [switchHeight]: '2em',
-    [switchGap]: '1em',
-    [thumbPadding]: '4px',
-    [thumbDiameter]: calc.subtract(
-      switchHeight,
-      calc.multiply(2, thumbPadding)
-    ),
-  },
-
   selectors: {
     // first label
     '&:first-of-type': {
@@ -58,6 +61,9 @@ export const optionLabel = style({
       display: 'flex',
       alignItems: 'center',
       gap: switchGap,
+      gridColumn: '1 / 3',
+      gridRow: '1 / 2',
+      justifySelf: 'end',
     },
     // first label when not checked
     'input:not(:checked) + &:first-of-type': {
@@ -65,8 +71,10 @@ export const optionLabel = style({
     },
     // second label, overlaps the first so we can click on both
     '&:nth-of-type(2)': {
-      marginInlineStart: calc.negate(switchWidth),
+      gridColumn: '2 / 4',
+      gridRow: '1 / 2',
       paddingInlineStart: calc.add(switchWidth, switchGap),
+      justifySelf: 'start',
       zIndex: 1,
     },
     // switch track

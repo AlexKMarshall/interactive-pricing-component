@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  ReactNode,
-  useEffect,
-  useRef,
-} from 'react'
-import { assignInlineVars, setElementVars } from '@vanilla-extract/dynamic'
+import { ChangeEvent, ReactNode, useEffect, useRef } from 'react'
 import {
   innerWrapper,
   input,
@@ -18,6 +11,7 @@ import {
 } from './slider.css'
 
 import { mergeClassNames } from 'src/merge-class-names'
+import { setElementVars } from '@vanilla-extract/dynamic'
 import { useSpring } from 'framer-motion'
 
 type Props<T extends unknown> = {
@@ -50,6 +44,8 @@ export function Slider<T>({
 
   const labelRef = useRef<HTMLLabelElement>(null)
   useEffect(() => {
+    // apply the sprung version of the value as a CSS prop directly to the parent element
+    // we do this by ref in an effect so we don't re-render on every change
     return springValue.onChange((val) => {
       if (labelRef.current) {
         setElementVars(labelRef.current, { [sliderValue]: val.toString() })
@@ -97,7 +93,7 @@ function SliderIcon({ className }: { className: string }) {
       aria-hidden
     >
       <path
-        fill="currentColor" //"hsl(174, 100%, 75)"
+        fill="currentColor"
         fillRule="evenodd"
         d="M16 2.558v7.884a1 1 0 0 0 1.735.679l3.639-3.943a1 1 0 0 0 0-1.356l-3.64-3.943A1 1 0 0 0 16 2.558zm-10 0v7.884a1 1 0 0 1-1.735.679L.626 7.178a1 1 0 0 1 0-1.356l3.64-3.943A1 1 0 0 1 6 2.558z"
       />
