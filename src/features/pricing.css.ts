@@ -90,7 +90,7 @@ export const controlsSection = style([
         gridTemplateAreas: `'pageviews price'
                             'slider slider'
                             'toggle toggle'`,
-        paddingInline: '2rem',
+        paddingInline: '2.5rem',
       },
     },
   },
@@ -161,7 +161,7 @@ export const ctaSection = style([
       [mediaQueries.desktop]: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingInline: '2rem',
+        paddingInline: '2.5rem',
       },
     },
   },
