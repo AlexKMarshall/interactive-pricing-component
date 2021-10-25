@@ -2,7 +2,7 @@ import { recipe } from '@vanilla-extract/recipes'
 import { style } from '@vanilla-extract/css'
 
 export const center = style({
-  maxWidth: '600px',
+  maxWidth: '700px',
   paddingInline: '1.5rem',
   marginInline: 'auto',
 })
