@@ -32,7 +32,7 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Frontend Mentor Solution Page](https://www.frontendmentor.io/solutions/pricing-component-using-react-vanilla-extract-and-custom-ui-controls-gJt7938-o)
 - Live Site URL: [Deployed App](https://interactive-pricing-component-pied.vercel.app/)
 
 ## My process
