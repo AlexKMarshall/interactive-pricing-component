@@ -24,6 +24,8 @@ import {
 import { useEffect, useRef, useState } from 'react'
 import { useMotionValue, useSpring } from 'framer-motion'
 
+import { mergeClassNames } from 'src/merge-class-names'
+
 const billingPlans = [
   { traffic: 10_000, price: 8 },
   { traffic: 50_000, price: 12 },
@@ -127,19 +129,18 @@ export function Pricing(): JSX.Element {
   )
 }
 
-type AnimatedNumberProps = {
+type UseSpringInnerTextProps = {
   value: number
   initial?: number
   transformFunction?: (value: number) => string
 }
-function AnimatedNumber({
+function useSpringInnerText({
   value,
   initial = 0,
   transformFunction = (value: number) => Number.prototype.toString(value),
-}: AnimatedNumberProps) {
+}: UseSpringInnerTextProps) {
   const elRef = useRef<HTMLSpanElement | null>(null)
 
-  const motionValue = useMotionValue(initial)
   const springValue = useSpring(initial)
 
   useEffect(() => {
@@ -147,16 +148,37 @@ function AnimatedNumber({
   }, [springValue, value])
 
   useEffect(() => {
-    console.log('subscribing to spring value')
-    springValue.onChange((val) => {
+    return springValue.onChange((val) => {
       if (elRef.current) {
         const formattedVal = transformFunction(val)
         elRef.current.innerText = formattedVal
       }
-
-      console.log(val)
     })
   }, [springValue, transformFunction])
 
-  return <span ref={elRef} />
+  return elRef
+}
+
+type AnimatedNumberProps = {
+  value: number
+  initial?: number
+  transformFunction?: (value: number) => string
+  className?: string
+}
+function AnimatedNumber({
+  value,
+  initial = 0,
+  transformFunction = (value: number) => Number.prototype.toString(value),
+  className,
+}: AnimatedNumberProps) {
+  const elRef = useSpringInnerText({ value, initial, transformFunction })
+
+  const formattedAccessibleValue = transformFunction(value)
+
+  return (
+    <>
+      <span ref={elRef} className={mergeClassNames(className)} aria-hidden />
+      <span className={screenReaderOnlyClass}>{formattedAccessibleValue}</span>
+    </>
+  )
 }
