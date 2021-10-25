@@ -11,10 +11,10 @@ import { themeTokens } from 'src/styles/theme.css'
 const [sliderThemeClass, sliderThemeTokens] = createTheme({
   color: {
     trackEmpty: themeTokens.color.neutral[300],
-    trackFill: themeTokens.color.cyan[300],
-    thumb: themeTokens.color.cyan[500],
-    thumbHover: themeTokens.color.cyan[300],
-    thumbIcon: themeTokens.color.cyan[400],
+    trackFill: themeTokens.color.cyan[200],
+    thumb: themeTokens.color.cyan[400],
+    thumbHover: themeTokens.color.cyan[200],
+    thumbIcon: themeTokens.color.cyan[300],
     thumbActive: themeTokens.color.cyan[500],
   },
 })
@@ -109,17 +109,15 @@ export const thumb = style({
   width: thumbDiameter,
   borderRadius: '50%',
   backgroundColor: sliderThemeTokens.color.thumb,
-  transition: 'filter 500ms ease',
-  transitionProperty: 'filter, backgroundColor',
-  // zIndex: 2,
+  transition: 'background-color 500ms ease',
 
   selectors: {
     [`input:focus-visible + ${thumbWrapper} > &`]: {
-      boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${sliderThemeTokens.color.thumb}`,
+      boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${sliderThemeTokens.color.thumbActive}`,
     },
     [`input:focus-visible + ${thumbWrapper} > &,  input:hover + ${thumbWrapper} > &`]:
       {
-        // filter: 'brightness(1.15) saturate(0.5)',
+        backgroundColor: sliderThemeTokens.color.thumbActive,
       },
     [`input:active + ${thumbWrapper} > &`]: {
       backgroundColor: sliderThemeTokens.color.thumbActive,
@@ -143,5 +141,5 @@ export const thumb = style({
 
 export const sliderIcon = style({
   width: '50%',
-  color: themeTokens.color.cyan[400],
+  color: themeTokens.color.cyan[300],
 })

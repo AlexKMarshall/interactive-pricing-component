@@ -7,6 +7,7 @@ const [switchThemeClass, switchThemeTokens] = createTheme({
   color: {
     track: {
       base: themeTokens.color.neutral[400],
+      hover: themeTokens.color.cyan[200],
     },
     thumb: {
       base: themeTokens.color.neutral[100],
@@ -37,6 +38,7 @@ export const optionLabel = style({
   position: 'relative',
   flexShrink: 0,
   flexGrow: 0,
+  cursor: 'pointer',
 
   vars: {
     [switchWidth]: '4em',
@@ -77,6 +79,7 @@ export const optionLabel = style({
       height: switchHeight,
       borderRadius: '999px',
       backgroundColor: switchThemeTokens.color.track.base,
+      transition: 'background-color 150ms ease',
     },
     // switch thumb
     '&:first-of-type:after': {
@@ -88,6 +91,7 @@ export const optionLabel = style({
       height: thumbDiameter,
       borderRadius: '50%',
       backgroundColor: switchThemeTokens.color.thumb.base,
+      transition: 'transform 200ms ease',
     },
     // thumb with item 1 selected
     'input:checked + &:first-of-type:after': {
@@ -100,8 +104,13 @@ export const optionLabel = style({
     },
     // focus styles on the switch
     [`${fieldSet}:focus-within &:first-of-type:before`]: {
-      boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${themeTokens.color.neutral[600]}`,
+      boxShadow: `0 0 0 2px ${themeTokens.color.neutral[100]}, 0 0 0 4px ${switchThemeTokens.color.track.hover}`,
       outline: '1px solid transparent',
+      backgroundColor: switchThemeTokens.color.track.hover,
+    },
+    // hover styles on the switch
+    [`${fieldSet}:hover &:first-of-type:before`]: {
+      backgroundColor: switchThemeTokens.color.track.hover,
     },
   },
 })
