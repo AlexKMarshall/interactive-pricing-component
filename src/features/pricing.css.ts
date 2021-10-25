@@ -11,7 +11,6 @@ export const main = style([
     '@media': {
       [mediaQueries.desktop]: {
         minHeight: '100vh',
-        // paddingBlock: 0,
         gap: 0,
         justifyContent: 'space-evenly',
       },
@@ -65,6 +64,9 @@ export const form = style([
     vars: {
       [shadowColor]: '225 20% 60%',
     },
+
+    // hide overflow as I haven't got a way of constraining the slider properly, without chopping off its shadow
+    overflow: 'hidden',
   },
 ])
 
