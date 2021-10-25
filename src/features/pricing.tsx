@@ -21,8 +21,8 @@ import {
   slider,
   toggle,
 } from './pricing.css'
-
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useMotionValue, useSpring } from 'framer-motion'
 
 const billingPlans = [
   { traffic: 10_000, price: 8 },
@@ -86,7 +86,12 @@ export function Pricing(): JSX.Element {
               className={slider}
             />
             <output htmlFor="plan-select billing-frequency" className={price}>
-              <span className={priceAmount}>{formattedPrice}</span>
+              <span className={priceAmount}>
+                <AnimatedNumber
+                  value={computedPrice}
+                  transformFunction={priceFormatter}
+                />
+              </span>
               <span>/ month</span>
             </output>
             <RadioToggle
@@ -120,4 +125,38 @@ export function Pricing(): JSX.Element {
       </main>
     </>
   )
+}
+
+type AnimatedNumberProps = {
+  value: number
+  initial?: number
+  transformFunction?: (value: number) => string
+}
+function AnimatedNumber({
+  value,
+  initial = 0,
+  transformFunction = (value: number) => Number.prototype.toString(value),
+}: AnimatedNumberProps) {
+  const elRef = useRef<HTMLSpanElement | null>(null)
+
+  const motionValue = useMotionValue(initial)
+  const springValue = useSpring(initial)
+
+  useEffect(() => {
+    springValue.set(value)
+  }, [springValue, value])
+
+  useEffect(() => {
+    console.log('subscribing to spring value')
+    springValue.onChange((val) => {
+      if (elRef.current) {
+        const formattedVal = transformFunction(val)
+        elRef.current.innerText = formattedVal
+      }
+
+      console.log(val)
+    })
+  }, [springValue, transformFunction])
+
+  return <span ref={elRef} />
 }
