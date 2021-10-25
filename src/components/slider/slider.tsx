@@ -1,4 +1,11 @@
-import { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react'
+import {
+  ChangeEvent,
+  ComponentPropsWithoutRef,
+  ReactNode,
+  useEffect,
+  useRef,
+} from 'react'
+import { assignInlineVars, setElementVars } from '@vanilla-extract/dynamic'
 import {
   innerWrapper,
   input,
@@ -10,8 +17,8 @@ import {
   wrapper,
 } from './slider.css'
 
-import { assignInlineVars } from '@vanilla-extract/dynamic'
 import { mergeClassNames } from 'src/merge-class-names'
+import { useSpring } from 'framer-motion'
 
 type Props<T extends unknown> = {
   options: T[]
@@ -36,6 +43,20 @@ export function Slider<T>({
   // zero-based decimal to calculate distance thumb travels
   const decimalValue = (1 / (numOfOptions - 1)) * (inputValue - 1)
 
+  const springValue = useSpring(0, { mass: 0.3 })
+  useEffect(() => {
+    springValue.set(decimalValue)
+  }, [decimalValue, springValue])
+
+  const labelRef = useRef<HTMLLabelElement>(null)
+  useEffect(() => {
+    return springValue.onChange((val) => {
+      if (labelRef.current) {
+        setElementVars(labelRef.current, { [sliderValue]: val.toString() })
+      }
+    })
+  }, [springValue])
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newInputValue = parseInt(event.target.value)
     const newSelectedOption = options[newInputValue - 1] // convert to zero-based index
@@ -43,12 +64,7 @@ export function Slider<T>({
   }
 
   return (
-    <label
-      className={mergeClassNames(wrapper, className)}
-      style={assignInlineVars({
-        [sliderValue]: decimalValue.toString(),
-      })}
-    >
+    <label className={mergeClassNames(wrapper, className)} ref={labelRef}>
       {label}
       <span className={innerWrapper}>
         <span className={track} />
