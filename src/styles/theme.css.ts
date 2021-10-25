@@ -15,6 +15,11 @@ export const themeTokens = createGlobalTheme(':root', {
     blue: {
       100: 'hsl(226, 100%, 87%)',
     },
+    cyan: {
+      300: 'hsl(174, 77%, 80%)',
+      400: 'hsl(174, 100%, 75%)',
+      500: 'hsl(174, 86%, 45%)',
+    },
     neutral: {
       100: 'hsl(0, 0%, 100%)',
       200: 'hsl(230, 100%, 99%)',
