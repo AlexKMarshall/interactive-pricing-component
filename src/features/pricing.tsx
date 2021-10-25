@@ -77,7 +77,11 @@ export function Pricing(): JSX.Element {
         <form className={form}>
           <div className={controlsSection}>
             <output htmlFor="plan-select" className={pageViews}>
-              {formattedTraffic} Pageviews
+              <AnimatedNumber
+                value={traffic}
+                transformFunction={numberFormmater}
+              />{' '}
+              Pageviews
             </output>
             <Slider
               id="plan-select"
